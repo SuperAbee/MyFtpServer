@@ -56,26 +56,6 @@ public class AESCoder {
 
     }
 
-    public static void main(String[] args) {
-        jdkAES();
-    }
-
-    public static void jdkAES() {
-        byte[] byteKey = new AESCoder().getByteKey();
-        System.out.println("公钥长度：" + byteKey.length);
-        System.out.println("公钥：" + Arrays.toString(byteKey));
-
-        byte[] buffer = {-62, -127, -55, 82, -50, -11, -105, -123, 58,  112, 40, 12, 90, 41, -54, 84};
-
-        byte[] t = AESCoder.encrypt(buffer, byteKey);
-        System.out.println("加密后：" + Hex.encodeHexString(t) +
-                "长度：" + t.length);
-
-        byte[] result = AESCoder.decrypt(t, byteKey);
-        System.out.println("解密后：" + new String(result));
-
-    }
-
     public byte[] getByteKey() {
         return byteKey;
     }

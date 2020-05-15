@@ -22,7 +22,7 @@ public class MyFtpClient {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
-        operationSet = new AdvancedOperationSet(out, in);
+        operationSet = new AdvancedOperationSet(out, in, ip);
     }
 
     /**

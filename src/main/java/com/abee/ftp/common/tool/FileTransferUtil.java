@@ -158,9 +158,19 @@ public class FileTransferUtil {
                     buffer = Arrays.copyOf(buffer, len);
                 }
                 byte[] message = AESCoder.encrypt(buffer, key);
+
+                if (message == null) {
+                    System.out.println("Poor network condition.");
+                }
+
                 out.write(message);
+
+                /**
+                 * To adapt poor network condition.
+                 */
+                Thread.sleep(50);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -231,8 +241,19 @@ public class FileTransferUtil {
                 if (len < buffer.length) {
                     buffer = Arrays.copyOf(buffer, len);
                 }
+
                 byte[] message = AESCoder.decrypt(buffer, key);
+
+                if (message == null) {
+                    System.out.println("Poor network condition.");
+                }
+
                 channel.write(ByteBuffer.wrap(message));
+
+                /**
+                 * To adapt poor network condition.
+                 */
+                Thread.sleep(50);
             }
 
         } catch (FileNotFoundException e) {
@@ -241,6 +262,8 @@ public class FileTransferUtil {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             if (lock != null) {
                 try {
